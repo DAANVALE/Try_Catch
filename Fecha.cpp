@@ -101,3 +101,55 @@ bool Fecha::validateLeap_year(int _year) {
 		return false;
 	}
 }
+
+Fecha& Fecha::operator++() {
+	if (validateDay(day + 1, month, year)) {
+		++day;
+	}
+	else {
+		day = 1;
+		if (month != 12) {
+			++month;
+		}
+		else {
+			month = 1;
+			++year;
+		}
+	}
+
+	return *this;
+}
+
+Fecha& Fecha::operator--() {
+	if (validateDay(day-1, month, year)) {
+		--day;
+	}
+	else {
+		if (month == 1) {
+			month = 12;
+			day = 31;
+			--year;
+		}
+		else {
+			--month;
+			if (validateDay(31,month,year)) {
+				day = 31;
+			}
+			else {
+				if (validateDay(30, month, year)) {
+					day = 30;
+				}
+				else {
+					if (validateDay(29, month, year)) {
+						day = 29;
+					}
+					else {
+						day = 28;
+					}
+				}
+			}
+		}
+	}
+
+	return *this;
+}

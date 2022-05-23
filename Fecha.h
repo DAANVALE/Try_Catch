@@ -17,6 +17,9 @@ public:
 	int getYear();
 	bool validateDay(int _day, int _month, int year);
 	bool validateLeap_year(int _year);
+
+	Fecha& operator ++();
+	Fecha& operator --();
 };
 
 #endif // FECHA_H
